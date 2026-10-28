@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
-#include "httplib.h" // We will download this library
+#include "httplib.h" 
 
 using namespace std;
 
@@ -40,15 +40,14 @@ public:
     string getDoc() const { return document; }
 };
 
-// Global instance (Note: For a real app, use sessions, but this is fine for a demo)
 TextEditor editor;
 
 int main() {
     httplib::Server svr;
 
-    // 1. Serve the HTML Frontend
+    // 1. Serve the HTML Frontend (FIXED RAW STRING DELIMITER)
     svr.Get("/", [](const httplib::Request &, httplib::Response &res) {
-        string html = R"(
+        string html = R"HTML(
             <!DOCTYPE html>
             <html>
             <head>
@@ -75,7 +74,7 @@ int main() {
                 </script>
             </body>
             </html>
-        )";
+        )HTML";
         res.set_content(html, "text/html");
     });
 
